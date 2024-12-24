@@ -1,0 +1,4 @@
+Username,Password,Email,"Full Name",Administrator,Manager,"Remote User"
+john_doe,randomPassword,john.doe@example.com,"John Doe",true,false,false
+jane_smith,RndmPswrd,jane.smith@example.com,"Jane Smith",false,true,false
+james_butler,P@sword,james.butler@example.com,"James Butler",true,false,false

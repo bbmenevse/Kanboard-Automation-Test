@@ -1,0 +1,4 @@
+Username,Password,Email,Full Name,Administrator,Manager,Remote User
+admin,ValidPassword,admin.email@example.com,Admin User,true,false,false
+valid_user,ValidPassword,wrongformat#.com,Invalid Email,false,true,false
+emily_clark,pswrd,emily.clark@example.com,"Emily Clark",false,true,true

@@ -1,0 +1,34 @@
+version: '2'
+services:
+  db:
+    image: mariadb:latest
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - kanboard_db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=kanboard
+      - MYSQL_USER=kanboard
+      - MYSQL_PASSWORD=123456
+    restart: always
+
+  kanboard:
+    image: kanboard/kanboard:latest
+    ports:
+      - 88:80
+    volumes:
+      - kanboard_data:/var/www/app/data
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_USER=kanboard
+      - DATABASE_PASSWORD=123456
+      - DATABASE_NAME=kanboard
+    depends_on:
+      - db
+    links:
+      - db:db
+    restart: always
+
+volumes:
+  kanboard_db:
+  kanboard_data:

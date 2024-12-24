@@ -1,0 +1,31 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="MyTestSuite" parallel="classes" thread-count="1">
+    <test name="MyTest">
+        <classes>
+
+            <class name="tests.isolatedtests.LoginTest"/>
+
+            <class name="tests.isolatedtests.projecttests.BoardTest"/>
+            <class name="tests.isolatedtests.projecttests.ListTest"/>
+
+            <class name="tests.isolatedtests.indextests.MySubtasksTest"/>
+            <class name="tests.isolatedtests.indextests.MyTasksTest"/>
+            <class name="tests.isolatedtests.indextests.MyProjectsTest"/>
+
+            <class name="tests.isolatedtests.managementstests.UserManagementTest"/>
+            <class name="tests.isolatedtests.managementstests.GroupsManagementTest"/>
+            <class name="tests.isolatedtests.managementstests.GroupMembersTest"/>
+
+            <class name="tests.isolatedtests.userdetailstests.AvatarTest"/>
+            <class name="tests.isolatedtests.userdetailstests.UserSummaryTest"/>
+            <class name="tests.isolatedtests.userdetailstests.EditProfileTest"/>
+            <class name="tests.isolatedtests.userdetailstests.ChangePasswordTest"/>
+
+
+
+
+
+
+        </classes>
+    </test>
+</suite>
