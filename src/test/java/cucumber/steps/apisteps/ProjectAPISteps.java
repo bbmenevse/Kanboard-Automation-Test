@@ -37,18 +37,6 @@ public class ProjectAPISteps {
     @When("I create a new project with the following details:")
     public void i_create_a_new_project_with_the_following_details(io.cucumber.datatable.DataTable dataTable) {
         Map<String, Object> params = new HashMap<>(dataTable.asMap(String.class, Object.class));
-
-        // Cucumber reads Datatable variables as String
-        // This means I have to manually specify types other then String
-        if (params.containsKey("owner_id")) {
-            String ownerIdValue = params.get("owner_id").toString();
-            if (ownerIdValue.matches("\\d+")) { // Check if the value is numeric
-                params.replace("owner_id", Integer.parseInt(ownerIdValue));
-            } else {
-                //System.out.println("Warning: Sending non numeric for id, is this on purpose?");
-            }
-        }
-
         Response response = projectAPI.createProject(ConfigLoader.getProperty("admin.username"), ConfigLoader.getProperty("admin.password"),params);
     }
 
