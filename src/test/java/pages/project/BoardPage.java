@@ -87,6 +87,11 @@ public class BoardPage extends BaseProjectPage{
         }
     }
 
+    /**
+     * Risky since
+     * @param taskOneId the id of the first task
+     * @param taskTwoId the id of the second task
+     */
     public void dragTaskAboveAnotherTaskById(String taskOneId, String taskTwoId)
     {
         if (!taskOneId.matches("\\d+") || !taskTwoId.matches("\\d+")) {
@@ -106,6 +111,13 @@ public class BoardPage extends BaseProjectPage{
         }
     }
 
+    /**
+     *
+     * If TaskOne is above TaskTwo at the time of this action, TaskOne will be moved below TaskTwo
+     * If TaskOne is below TaskTwo at the time of this action, TaskOne will be moved above TaskTwo
+     * @param taskOneName the name of the first Task
+     * @param taskTwoName the name of the second Task
+     */
     public void dragTaskAboveAnotherTask(String taskOneName,String taskTwoName)
     {
         SelenideElement taskOne = $$("div.task-board.draggable-item").findBy(Condition.text(taskOneName));

@@ -8,5 +8,9 @@ Feature: Project API Test
   Scenario: Create a project and verify the count increases
     Given I have access to the Kanboard API
     And I retrieve the number of projects
-    When I create a new project with name "Created By API Project" and description "Description"
+    When I create a new project with the following details:
+      | name         | Api StepTest Project   |
+      | description  | A test description     |
+      | owner_id     | 1                      |
+      | identifier   | STEPPROJ               |
     Then the number of projects should increase by 1

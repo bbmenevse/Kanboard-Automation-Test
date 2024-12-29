@@ -35,4 +35,34 @@ public class APIHelper {
                 .post(ConfigLoader.getProperty("baseapiurl"));
     }
 
+    public static void validateResponse(Response response, int expectedStatusCode) {
+        if (response == null) {
+            throw new IllegalArgumentException("Response cannot be null.");
+        }
+
+        if (response.getStatusCode() != expectedStatusCode) {
+            throw new RuntimeException("API call does not match the expected status code: " + response.getStatusCode()
+                    + ", Response: " + " /n Expected status code:"+ response.getBody().asString());
+        }
+
+        String responseBody = response.getBody().asString();
+        if (response.getStatusCode() == 204 || (responseBody != null && !responseBody.isEmpty())) {
+            System.out.println("Empty body from response as intended.");
+        } else {
+            throw new IllegalStateException("Unexpected empty response body for this operation.");
+        }
+
+        //System.out.println("Raw JSON Response: " + responseBody);
+
+        try {
+            Object result = response.jsonPath().get("result");
+            if (result == null) {
+                throw new IllegalStateException("Unexpected response: result is null.");
+            }
+            //return result;
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to parse response JSON: " + e.getMessage(), e);
+        }
+    }
+
 }

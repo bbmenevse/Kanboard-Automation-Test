@@ -221,10 +221,6 @@ public class BoardTest extends BaseTest {
     @Test(priority = 4)
     public void columnShapesTest()
     {
-        // TODO
-        // NEED TO CONFIRM THAT TASKS ARE IN CORRECT ORDER IN THE BEGINNING
-
-
         // Collapse Tasks
         boardPage.configureProjectButton.click();
         if(boardPage.expandTasks.isDisplayed())
@@ -235,19 +231,19 @@ public class BoardTest extends BaseTest {
         boardPage.collapseTasks.shouldBe(visible).click();
         $("div.task-board-collapsed").should(exist);
 
-        boardPage.clickGivenLocator(boardPage.sortButtonOnGivenColumn,"Backlog");
-        boardPage.sortTasksByIdAscending.click();
-
         SelenideElement firstElement = boardPage.getCollapsedTaskByName("Randomless task");
         SelenideElement secondElement = boardPage.getCollapsedTaskByName("A task to see how this looks");
-        boardPage.dragTaskAboveAnotherTask("Randomless task","A task to see how this looks"); // Drag task 7 over Task 2
+        boardPage.dragTaskAboveAnotherTask("Randomless task","A task to see how this looks");
+        boardPage.clickGivenLocator(boardPage.sortButtonOnGivenColumn,"Backlog");
+        boardPage.sortTasksByIdDescending.click();
         int taskOneLocation = firstElement.getLocation().getY();
         //System.out.println("first: " + taskSevenLocation);
         int taskTwoLocation = secondElement.getLocation().getY();
+
         //System.out.println("second: " + taskTwoLocation);
         // Drag Task 7 over 2 and assert that task 7 is above 2
         assertTrue(taskOneLocation < taskTwoLocation);
-        boardPage.dragTaskAboveAnotherTask("Randomless task","A task to see how this looks"); // Drag task 2 over task 7
+        boardPage.dragTaskAboveAnotherTask("Randomless task","A task to see how this looks");
         taskOneLocation = firstElement.getLocation().getY();
         taskTwoLocation = secondElement.getLocation().getY();
         // Drag Task 2 over 7 and assert that task 2 is above 7

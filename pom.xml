@@ -64,6 +64,7 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>7.15.0</version>
+            <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
         <dependency>
@@ -94,6 +95,7 @@
             <groupId>io.cucumber</groupId>
             <artifactId>gherkin</artifactId>
             <version>29.0.0</version>
+            
         </dependency>
 
 
