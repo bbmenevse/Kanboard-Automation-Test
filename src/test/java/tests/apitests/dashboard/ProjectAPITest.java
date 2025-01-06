@@ -2,6 +2,7 @@ package tests.apitests.dashboard;
 
 import api.projectapi.ProjectAPI;
 import api.projectapi.ProjectJsonObject;
+import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import util.ConfigLoader;
 
@@ -32,9 +33,16 @@ public class ProjectAPITest {
         assertEquals(projectNumber+1,projectAPI.getNumberOfProjects(ConfigLoader.getProperty("admin.username"),ConfigLoader.getProperty("admin.password"))); // confirm that number of projects went up by 1
     }
     @Test(priority = 3)
-    public void updateProject(){
+    public void updateProject() throws Exception {
+        Response response = projectAPI.getProjectByIdentifier(ConfigLoader.getProperty("admin.username"),ConfigLoader.getProperty("admin.password"),"APITestIdentifier");
+        ProjectJsonObject projectJsonObject = ProjectJsonObject.fromJson(response.getBody().asString());
+
+        Map<String, Object> projectObject = new HashMap<>();
+        projectObject.put("project_id",projectJsonObject.getId());
+        projectObject.put("name","Updated API Project");
+        projectObject.put("description", "Updated description via API");
         assertEquals(projectAPI.getProjectByName(ConfigLoader.getProperty("admin.username"),ConfigLoader.getProperty("admin.password"),"Created By API Project").getStatusCode(),200);
-        projectAPI.updateProjectById(ConfigLoader.getProperty("admin.username"),ConfigLoader.getProperty("admin.password"),10); // I did the updating inside method.
+        projectAPI.updateProjectById(ConfigLoader.getProperty("admin.username"),ConfigLoader.getProperty("admin.password"),projectObject); // I did the updating inside method.
         assertEquals(projectAPI.getProjectByName(ConfigLoader.getProperty("admin.username"),ConfigLoader.getProperty("admin.password"),"Created By API Project").getStatusCode(),200);
     }
     @Test(priority = 4)

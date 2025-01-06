@@ -13,7 +13,7 @@ import java.util.Map;
  */
 
 /*
-A single method could have suffice if needed. It would take userName, userPassword, api method, parameters.
+A single method could have sufficed if needed. It would take userName, userPassword, api method, parameters.
 That would be better in my opinion but for this project, I will create CRUD methods.
  */
     /*
@@ -44,9 +44,15 @@ public class ProjectAPI {
      */
     public Response createProject(String userName,String password, Map<String, Object> params) {
         String requestBody = APIHelper.buildRequest("createProject",params);
-        System.out.println(requestBody);
         Response response = APIHelper.sendRequest(requestBody,userName,password);
-        System.out.println(response.asString());
+        return response;
+    }
+
+    public Response getProjectById(String userName, String password, Integer id){
+        Map<String, Object> params = new HashMap<>();
+        params.put("project_id",id);
+        String requestBody = APIHelper.buildRequest("getProjectById",params);
+        Response response = APIHelper.sendRequest(requestBody,userName,password);
         return response;
     }
 
@@ -55,17 +61,20 @@ public class ProjectAPI {
         params.put("name",projectName);
         String requestBody = APIHelper.buildRequest("getProjectByName",params);
         Response response = APIHelper.sendRequest(requestBody,userName,password);
-        //ApiResponseValidator.validateResponse(response,200);
         return response;
     }
 
-    // There is no update by name choice, as names are not unique.
-    // If a user does not have permission on a project, they will not be able to update it, even if admin.
-    public Response updateProjectById(String userName, String password, int projectId){
+    public Response getProjectByIdentifier(String userName, String password, String identifier){
         Map<String, Object> params = new HashMap<>();
-        params.put("project_id",projectId);
-        params.put("name","Updated API Project");
-        params.put("description", "Updated description via API");
+        params.put("identifier",identifier);
+            String requestBody = APIHelper.buildRequest("getProjectByIdentifier",params);
+        Response response = APIHelper.sendRequest(requestBody,userName,password);
+        return response;
+    }
+
+    // There is no update by name or identifier method, only id.
+    // If a user does not have permission on a project, they will not be able to update it, even if admin.
+    public Response updateProjectById(String userName, String password, Map<String, Object> params){
 
         String requestBody = APIHelper.buildRequest("updateProject",params);
         Response response = APIHelper.sendRequest(requestBody,userName,password);
@@ -74,7 +83,6 @@ public class ProjectAPI {
         //ApiResponseValidator.validateResponse(response,200);
 
     }
-
 
     public Response deleteProject(String userName, String password, int projectId){
 
