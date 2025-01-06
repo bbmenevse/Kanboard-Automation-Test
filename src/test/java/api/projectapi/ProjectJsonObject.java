@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.HashMap;
 import java.util.Map;
 // Too many parameters. Won't test them all.
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -44,6 +45,8 @@ public class ProjectJsonObject {
 
     @JsonProperty("default_swimlane")
     private String defaultSwimlane;
+    
+    private Boolean result;
 
     @JsonProperty("show_default_swimlane")
     private Boolean showDefaultSwimlane;
@@ -83,6 +86,14 @@ public class ProjectJsonObject {
 
     public Integer getOwnerId() {
         return ownerId;
+    }
+
+    public Boolean getResult(){
+        return result;
+    }
+
+    public void setResult(Boolean result){
+        this.result = result;
     }
 
     public void setOwnerId(Integer ownerId) {
@@ -193,11 +204,24 @@ public class ProjectJsonObject {
      */
     public static ProjectJsonObject fromJson(String json) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
-
         Map<String, Object> responseMap = objectMapper.readValue(json, Map.class);
-        Map<String, Object> result = (Map<String, Object>) responseMap.get("result");
+        Object result = responseMap.get("result");
+        if(result instanceof Map)
+        {
+            result = (Map<String, Object>) responseMap.get("result");
+            return objectMapper.convertValue(result, ProjectJsonObject.class);
+        }
+        else if(result instanceof Boolean){
+            Map<String, Object> booleanResultMap = new HashMap<>();
+            booleanResultMap.put("result", result);
+            return objectMapper.convertValue(booleanResultMap, ProjectJsonObject.class);
+        }
+        else{
+            System.out.println("Some result returned from kanboard I haven't seen before" +
+                    "/n Check what returned exactly./n  Result: " + result.toString());
+            return null;
+        }
 
-        return objectMapper.convertValue(result, ProjectJsonObject.class);
     }
 
     public Map<String, Object> toMap() {
