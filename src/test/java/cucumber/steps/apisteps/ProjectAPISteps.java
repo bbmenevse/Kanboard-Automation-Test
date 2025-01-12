@@ -45,31 +45,9 @@ public class ProjectAPISteps {
     @When("I Update a project by id or identifier with the following details:")
     public void iUpdateProjectByIdOrIdentifier(io.cucumber.datatable.DataTable dataTable) throws Exception {
         updateParams = new HashMap<>(dataTable.asMap(String.class, Object.class));
-        //System.out.println(params);
-        //ProjectJsonObject obj = ProjectJsonObject.fromJson(projectAPI.getProjectByIdentifier(userName, password,params.get("identifier").toString()).getBody().asString());
-
-        // If project_id doesn't exist but identifier does, it can be used to get the project first,
-        // then use the project to find id, and use that id to update the project.
-        // This is not how Kanboard handles this situation. But if it did have a separate method called
-        // updateByIdentifier, it would be better in my opinion.
-        /*
-        if ((!params.containsKey("project_id") || params.get("project_id").toString().isEmpty())
-                && params.containsKey("identifier")
-                && !params.get("identifier").toString().isEmpty()) {
-
-            ProjectJsonObject obj = ProjectJsonObject.fromJson(
-                    projectAPI.getProjectByIdentifier(
-                            userName,
-                            password,
-                            params.get("identifier").toString()
-                    ).getBody().asString()
-            );
-            params.put("project_id", obj.getId()); // put id into the parameters
-        }
-        */
 
        Response response =  projectAPI.updateProjectById(userName, password, updateParams);
-       // We could simply check if the result is "true" aswell, but wanted to get details.
+       // We could simply check if the result is "true" as well, but wanted to get details.
        if(response.getStatusCode() == 200){
            if(response.jsonPath().getMap("error")!=null){
                fail("Missing argument! ID is missing.");
