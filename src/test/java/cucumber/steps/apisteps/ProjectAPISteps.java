@@ -16,7 +16,7 @@ import static org.testng.Assert.fail;
 public class ProjectAPISteps {
     Map<String, Object> updateParams;
     private int initialProjectCount;
-    private int updatedProjectId=0;
+    private Response response;
     private ProjectAPI projectAPI;
     private String userName;
     private String password;
@@ -29,6 +29,7 @@ public class ProjectAPISteps {
     }
 
     @When("I retrieve the number of projects")
+
     public void iRetrieveTheNumberOfProjects() {
         initialProjectCount = projectAPI.getNumberOfProjects(
                 userName,
@@ -37,6 +38,8 @@ public class ProjectAPISteps {
 
     @Then("the number of projects should be {int}")
     public void theNumberOfProjectsShouldBe(int expectedCount) {
+        System.out.println("Initial project count: " + initialProjectCount);
+        System.out.println("Expected project count: " + expectedCount);
         assertEquals(expectedCount, initialProjectCount);
     }
     @When("I Update a project by id or identifier with the following details:")
@@ -133,7 +136,7 @@ public class ProjectAPISteps {
 
     @When("I remove project with given id: {int}")
     public void iRemoveAProjectCalled(int projectId) {
-       Response response = projectAPI.deleteProject(userName,password,projectId);
-
+        projectAPI.deleteProject(userName,password,projectId);
     }
+
 }

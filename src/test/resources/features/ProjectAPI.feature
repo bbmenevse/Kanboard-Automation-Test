@@ -29,4 +29,6 @@ Feature: Project API Test
     @Test
     Scenario: Delete a project and confirm it is deleted
       Given I have access to the Kanboard API with user "admin" and password "123456"
+      And I retrieve the number of projects
       When I remove project with given id: 10
+      Then the number of projects should increase by -1
