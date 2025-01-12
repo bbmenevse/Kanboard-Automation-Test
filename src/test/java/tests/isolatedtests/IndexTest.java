@@ -16,6 +16,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 // This one was for learning purposes, Is not used anymore.
+
 public class IndexTest extends BaseTest {
 
     SelenideElement boardIdInput = $("input[name='boardId']");
@@ -33,20 +34,14 @@ public class IndexTest extends BaseTest {
         headerHelper.clickGivenElementOnDropdown(headerHelper.logoutOnDropdown);
     }
 
-    @Test
+    @Test(enabled = false)
     public void myProjectsButtonTest() {
         assertTrue(dashboardPage.isTaskComplexityNumberCorrectForProject("A task to see how this looks","2"));
         assertFalse(dashboardPage.isTaskComplexityNumberCorrectForProject("A task to see how this looks","3"));
     }
-    @Test
-    // All UI ELEMENTS WITH NO INPUT REQUIRED
-    public void AllUIElementsVisibilityTest()
-    {
-
-    }
 
     // ALL MENU ITEMS
-    @Test
+    @Test(enabled = false)
     public void AllMenuItemsVisibilityTest()
     {
         assertTrue(dashboardPage.areDropdownFiltersOnSearchBarVisible());
@@ -59,7 +54,7 @@ public class IndexTest extends BaseTest {
         $("body").click();
     }
 
-    @Test
+    @Test(enabled = false)
     public void changeIconWhenSubtaskStatusIsToggled() {
         assertTrue(dashboardPage.doesIconChangeAfterClick("Random Subtask"));
         assertFalse(dashboardPage.doesIconChangeAfterClick("A Subtask Name That Doesn't Exist"));
@@ -68,7 +63,7 @@ public class IndexTest extends BaseTest {
         assertFalse(dashboardPage.isSubtaskWithGivenNameVisible("A Subtask Name That Doesn't Exist"));
     }
 
-    @Test
+    @Test(enabled = false)
         public void isProjectPersonal(){
         assertTrue(dashboardPage.isProjectPersonal("Project Moon"));
         assertFalse(dashboardPage.isProjectPersonal("Flying'' Cow"));
@@ -102,7 +97,7 @@ public class IndexTest extends BaseTest {
         */
     }
 
-    @Test   
+    @Test(enabled = false)
     public void testNumbersOnProjectsForTaskBacklog() {
         System.out.println("Webdriver: "+WebDriverRunner.url());
 
@@ -112,7 +107,7 @@ public class IndexTest extends BaseTest {
         assertTrue(dashboardPage.isTaskCountCorrectForBacklog("First Example Project",2));
         assertFalse(dashboardPage.isTaskCountCorrectForBacklog("First Example Project",200));
     }
-    @Test
+    @Test(enabled = false)
     public void newProjectTest(){
         //indexPage.cli
 
