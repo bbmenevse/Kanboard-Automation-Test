@@ -6,25 +6,52 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import util.ConfigLoader;
 
+import java.util.Arrays;
 import java.util.Map;
 
 public class APIHelper {
 
 
-        public static String buildRequest(String method, Map<String, Object> params) {
-            Gson gson = new Gson();
-            JsonObject requestBody = new JsonObject();
-            requestBody.addProperty("jsonrpc", "2.0");
-            requestBody.addProperty("method", method);
-            //// !!!!!
-            requestBody.addProperty("id", 1); // Not making this dynamic for now as I use only admin, may change later.
-            //// !!!!!
-            if (params != null && !params.isEmpty()) {
-                requestBody.add("params", gson.toJsonTree(params));
-            }
-
-            return gson.toJson(requestBody);
+    public static String buildRequest(String method, Map<String, Object> params) {
+        Gson gson = new Gson();
+        JsonObject requestBody = new JsonObject();
+        requestBody.addProperty("jsonrpc", "2.0");
+        requestBody.addProperty("method", method);
+        //// !!!!!
+        requestBody.addProperty("id", 1); // Not making this dynamic for now as I use only admin, may change later.
+        //// !!!!!
+        if (params != null && !params.isEmpty()) {
+            requestBody.add("params", gson.toJsonTree(params));
         }
+
+        return gson.toJson(requestBody);
+    }
+
+    public static String buildRequest(String method) {
+        Gson gson = new Gson();
+        JsonObject requestBody = new JsonObject();
+        requestBody.addProperty("jsonrpc", "2.0");
+        requestBody.addProperty("method", method);
+        //// !!!!!
+        requestBody.addProperty("id", 1); // Not making this dynamic for now as I use only admin, may change later.
+        //// !!!!!
+        return gson.toJson(requestBody);
+    }
+
+    public static String buildRequest(String method, Object[] params) {
+        Gson gson = new Gson();
+        JsonObject requestBody = new JsonObject();
+        requestBody.addProperty("jsonrpc", "2.0");
+        requestBody.addProperty("method", method);
+        //// !!!!!
+        requestBody.addProperty("id", 1); // Not making this dynamic for now as I use only admin, may change later.
+        //// !!!!!
+        if (params != null && Arrays.stream(params).findAny().isPresent()) {
+            requestBody.add("params", gson.toJsonTree(params));
+        }
+
+        return gson.toJson(requestBody);
+    }
 
     public static Response sendRequest(String requestBody, String userName, String password) {
         return RestAssured.given()
@@ -63,6 +90,17 @@ public class APIHelper {
         } catch (Exception e) {
             throw new IllegalStateException("Failed to parse response JSON: " + e.getMessage(), e);
         }
+    }
+
+
+    /**
+     * Some api calls don't use parameter names in them
+     * This method can be used to add these methods
+     * @param args all of the objects passed into method
+     * @return an array of objects.
+     */
+    public static Object[] createParameterNamelessParams(Object... args) {
+        return args;
     }
 
 }
