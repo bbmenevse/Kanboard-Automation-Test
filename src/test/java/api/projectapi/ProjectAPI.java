@@ -8,8 +8,6 @@ import java.util.Map;
 /**
  * The reason behind taking userName and password as inputs is,
  * the api calls will have different responses to different users/roles.
- *
- * get
  */
 
 /*
@@ -27,7 +25,7 @@ public class ProjectAPI {
     public int getNumberOfProjects(String userName, String password){
         // Set the base URI
 
-        String requestBody = APIHelper.buildRequest("getAllProjects",null);
+        String requestBody = APIHelper.buildRequest("getAllProjects");
 
         // Make the API call with Basic Auth
         Response response = APIHelper.sendRequest(requestBody,userName,password);
