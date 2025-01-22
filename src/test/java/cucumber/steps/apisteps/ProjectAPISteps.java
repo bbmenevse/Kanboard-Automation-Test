@@ -2,7 +2,6 @@ package cucumber.steps.apisteps;
 
 import api.projectapi.ProjectAPI;
 import api.projectapi.ProjectJsonObject;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
@@ -13,27 +12,15 @@ import java.util.Map;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
-public class ProjectAPISteps {
+public class ProjectAPISteps extends BaseSteps{
     Map<String, Object> updateParams;
     private int initialProjectCount;
     private Response response;
     private ProjectAPI projectAPI;
-    private String userName;
-    private String password;
-
-    @Given("I have access to the Kanboard API with user {string} and password {string}")
-    public void iHaveAccessToTheKanboardApi(String userName, String password) {
-        projectAPI = new ProjectAPI();
-        this.userName = userName;
-        this.password = password;
-    }
 
     @When("I retrieve the number of projects")
-
     public void iRetrieveTheNumberOfProjects() {
-        initialProjectCount = projectAPI.getNumberOfProjects(
-                userName,
-                password);
+        initialProjectCount = projectAPI.getNumberOfProjects();
     }
 
     @Then("the number of projects should be {int}")
@@ -46,7 +33,7 @@ public class ProjectAPISteps {
     public void iUpdateProjectByIdOrIdentifier(io.cucumber.datatable.DataTable dataTable) throws Exception {
         updateParams = new HashMap<>(dataTable.asMap(String.class, Object.class));
 
-       Response response =  projectAPI.updateProjectById(userName, password, updateParams);
+       Response response =  projectAPI.updateProjectById(updateParams);
        // We could simply check if the result is "true" as well, but wanted to get details.
        if(response.getStatusCode() == 200){
            if(response.jsonPath().getMap("error")!=null){
@@ -70,14 +57,12 @@ public class ProjectAPISteps {
     @When("I create a new project with the following details:")
     public void iCreateANewProjectWithTheFollowingDetails(io.cucumber.datatable.DataTable dataTable) {
         Map<String, Object> params = new HashMap<>(dataTable.asMap(String.class, Object.class));
-        projectAPI.createProject(userName, password, params);
+        projectAPI.createProject( params);
     }
 
     @Then("the number of projects should increase by {int}")
     public void theNumberOfProjectsShouldIncreaseBy(int increment) {
-        int updatedProjectCount = projectAPI.getNumberOfProjects(
-                userName,
-                password);
+        int updatedProjectCount = projectAPI.getNumberOfProjects();
         assertEquals(initialProjectCount + increment, updatedProjectCount);
     }
 
@@ -85,7 +70,7 @@ public class ProjectAPISteps {
     public void theUpdatesShouldBeReflectedInTheProjectDetails() throws Exception {
         // Retrieve updated project details
         int projectId = Integer.parseInt(updateParams.get("project_id").toString());
-        Response response = projectAPI.getProjectById(userName, password, projectId);
+        Response response = projectAPI.getProjectById(projectId);
 
         // Get Project requires "project_id" but returns "id" in results as project id
         // This creates a mismatch so I fixed it
@@ -114,7 +99,7 @@ public class ProjectAPISteps {
 
     @When("I remove project with given id: {int}")
     public void iRemoveAProjectCalled(int projectId) {
-        projectAPI.deleteProject(userName,password,projectId);
+        projectAPI.deleteProject(projectId);
     }
 
 }

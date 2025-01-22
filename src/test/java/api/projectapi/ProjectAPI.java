@@ -22,7 +22,16 @@ That would be better in my opinion but for this project, I will create CRUD meth
      */
 public class ProjectAPI {
 
-    public int getNumberOfProjects(String userName, String password){
+    private final String userName;
+    private final String password;
+
+    // Constructor to initialize username and password
+    public ProjectAPI(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public int getNumberOfProjects(){
         // Set the base URI
 
         String requestBody = APIHelper.buildRequest("getAllProjects");
@@ -40,13 +49,13 @@ public class ProjectAPI {
     https://docs.kanboard.org/v1/api/project_procedures/#createproject
     If, the json does not have user id.
      */
-    public Response createProject(String userName,String password, Map<String, Object> params) {
+    public Response createProject(Map<String, Object> params) {
         String requestBody = APIHelper.buildRequest("createProject",params);
         Response response = APIHelper.sendRequest(requestBody,userName,password);
         return response;
     }
 
-    public Response getProjectById(String userName, String password, Integer id){
+    public Response getProjectById(Integer id){
         Map<String, Object> params = new HashMap<>();
         params.put("project_id",id);
         String requestBody = APIHelper.buildRequest("getProjectById",params);
@@ -54,7 +63,7 @@ public class ProjectAPI {
         return response;
     }
 
-    public Response getProjectByName(String userName, String password, String projectName){
+    public Response getProjectByName(String projectName){
         Map<String, Object> params = new HashMap<>();
         params.put("name",projectName);
         String requestBody = APIHelper.buildRequest("getProjectByName",params);
@@ -62,7 +71,7 @@ public class ProjectAPI {
         return response;
     }
 
-    public Response getProjectByIdentifier(String userName, String password, String identifier){
+    public Response getProjectByIdentifier(String identifier){
         Map<String, Object> params = new HashMap<>();
         params.put("identifier",identifier);
             String requestBody = APIHelper.buildRequest("getProjectByIdentifier",params);
@@ -72,7 +81,7 @@ public class ProjectAPI {
 
     // There is no update by name or identifier method, only id.
     // If a user does not have permission on a project, they will not be able to update it, even if admin.
-    public Response updateProjectById(String userName, String password, Map<String, Object> params){
+    public Response updateProjectById(Map<String, Object> params){
 
         String requestBody = APIHelper.buildRequest("updateProject",params);
         Response response = APIHelper.sendRequest(requestBody,userName,password);
@@ -82,7 +91,7 @@ public class ProjectAPI {
 
     }
 
-    public Response deleteProject(String userName, String password, int projectId){
+    public Response deleteProject(int projectId){
 
         Map<String, Object> params = new HashMap<>();
         params.put("project_id",projectId);
