@@ -2,6 +2,7 @@ package cucumber.steps.apisteps;
 
 import api.projectapi.ProjectAPI;
 import api.projectapi.ProjectJsonObject;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
@@ -12,11 +13,16 @@ import java.util.Map;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
-public class ProjectAPISteps extends BaseSteps{
+public class ProjectAPISteps{
     Map<String, Object> updateParams;
     private int initialProjectCount;
     private Response response;
     private ProjectAPI projectAPI;
+
+    @Given("I have access to the Kanboard API with user {string} and password {string}")
+    public void iHaveAccessToTheKanboardApi(String userName, String password) {
+        projectAPI = new ProjectAPI(userName,password);
+    }
 
     @When("I retrieve the number of projects")
     public void iRetrieveTheNumberOfProjects() {
