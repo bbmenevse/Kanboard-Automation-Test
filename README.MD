@@ -15,3 +15,10 @@ The project consists of two parts: browser automation tests and API tests. I’v
 - Rest Assured
 - Allure
 
+## Kanboard
+
+Kanboard is a simple, open-source project management tool based on Kanban boards. It helps track tasks, organize workflows, and manage projects visually. With features like swimlanes, subtasks, and automation, it’s great for keeping work organized and boosting productivity. Perfect for teams or solo users looking for a lightweight solution.
+
+
+## To be continued
+## Reports will be added, and each part will be explained
