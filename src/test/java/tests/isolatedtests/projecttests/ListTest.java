@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.project.ListPage;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -36,6 +37,15 @@ public class ListTest extends BaseTest {
     @AfterMethod
     public void logOut(){
         headerHelper.clickGivenElementOnDropdown(headerHelper.logoutOnDropdown);
+    }
+
+    @Test
+    public void clickTask(){
+        String taskTitle = "Something Random";
+        SelenideElement element = listPage.getTaskTitle(taskTitle);
+        element.click();
+        $("section#task-summary h2").should(text(taskTitle)).shouldBe(visible);
+
     }
 
     @Test

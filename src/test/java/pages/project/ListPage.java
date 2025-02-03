@@ -1,8 +1,11 @@
 package pages.project;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class ListPage extends BaseProjectPage{
 
@@ -18,6 +21,8 @@ public class ListPage extends BaseProjectPage{
     public final SelenideElement manageProject = $("ul.dropdown-submenu-open i.fa.fa-folder");
     // END
 
+    public final ElementsCollection taskTitles = $$(".table-list-title a");
+
     public final SelenideElement taskNumber = $("div.table-list-header-count");
     public final SelenideElement selectAll = $("a[data-list-item-selection='all']");
     public final SelenideElement unselectAll = $("a[data-list-item-selection='none']");
@@ -28,4 +33,9 @@ public class ListPage extends BaseProjectPage{
     public final SelenideElement showAndHideSubtasks = $("a i.fa-fw.fa-tasks");
 
     public final String taskCheckBox = "input[value='%s']";
+
+    public SelenideElement getTaskTitle(String title){
+
+        return taskTitles.findBy(Condition.text(title));
+    }
 }
