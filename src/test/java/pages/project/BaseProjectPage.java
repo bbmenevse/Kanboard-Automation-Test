@@ -15,7 +15,6 @@ public class BaseProjectPage {
     // CONFIGURE PROJECT MENU
     public final SelenideElement configureProjectButton = $("div.dropdown i.fa.fa-cog:not(.fa-fw)");
 
-
     public final SelenideElement addNewTask = $("ul.dropdown-submenu-open a:has(i.fa.fa-plus)");
     public final SelenideElement activity = $("ul.dropdown-submenu-open a:has(i.fa.fa-dashboard)");
     public final SelenideElement addCustomFilter = $("ul.dropdown-submenu-open a:has(i.fa.fa-filter)");
