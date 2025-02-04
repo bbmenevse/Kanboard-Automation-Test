@@ -3,7 +3,6 @@ package tests.scenariotests;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import helper.HeaderHelper;
-import helper.NavigationHelper;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.project.BoardPage;
@@ -23,7 +22,6 @@ public class AuthorizationTests {
     @Test
     public void authorizationTest(){
 
-
         Selenide.open("http://localhost:88/?controller=DashboardController&action=subtasks&user_id=1&page=1&order=tasks.title&direction=DESC");
         loginPage.userNameInput.setValue("Salih");
         loginPage.passwordInput.setValue("123456");
@@ -35,7 +33,6 @@ public class AuthorizationTests {
         loginPage.userNameInput.setValue("admin");
         loginPage.passwordInput.setValue("123456");
         loginPage.loginButton.click();
-
         boardPage.getTaskAnchorElementByGivenName("Randomless Task").should(Condition.exist);
 
 

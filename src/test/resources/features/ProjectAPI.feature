@@ -16,7 +16,7 @@ Feature: Project API Test
     Then the number of projects should increase by 1
 
   @Test
-  Scenario: Update a project and ensure it is updated.
+  Scenario: Update a project and ensure it is updated
     Given I have access to the Kanboard API with user "admin" and password "123456"
     When I Update a project by id or identifier with the following details:
       | project_id  | 10                       |
