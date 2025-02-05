@@ -2,6 +2,7 @@
 ## Summary
 This project uses Kanboard as a base for learning test automation. You can check out the original application [here](https://kanboard.org/).
 
+I have used Docker to deploy the application. For the database, I used MariaDB as suggested in Kanboard documentations.
 The project consists of two parts: browser automation tests and API tests. I’ve completed the browser-side tests using TestNG, but I’m still working on the API call tests.
 
 ### For browser-side tests, I’ve used the following frameworks/libraries:
@@ -72,6 +73,12 @@ ProjectAPI.feature Scenarios:
 
 There’s also a Cucumber test for MySubtasks, but it doesn’t use RestAssured. It only has one scenario:
 * Verify that the icon changes when clicking a subtask
+
+# Manual Tests
+
+Most of the application runs smoothly. I will focus on bugs I have found on this report.
+
+
 
 ## To be continued
 ## Reports will be added, and each part will be explained
