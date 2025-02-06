@@ -78,6 +78,8 @@ There’s also a Cucumber test for MySubtasks, but it doesn’t use RestAssured.
 
 Most of the application runs smoothly. I will focus on bugs I have found on this report.
 
+### Board Page
+**Minor bug**: On Column title, if you click the caret, a dropdown will open. The icon for "hide this column" is outside of anchor element which is why nothing happens when you click on the icon.
 
 
 ## To be continued
