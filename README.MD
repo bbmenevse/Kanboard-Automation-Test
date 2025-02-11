@@ -79,7 +79,24 @@ There’s also a Cucumber test for MySubtasks, but it doesn’t use RestAssured.
 Most of the application runs smoothly. I will focus on bugs I have found on this report.
 
 ### Board Page
-**Minor bug**: On Column title, if you click the caret, a dropdown will open. The icon for "hide this column" is outside of anchor element which is why nothing happens when you click on the icon.
+**Minor Bug:** On Column title, if you click the caret, a dropdown will open. The icon for "hide this column" is outside of anchor element which is why nothing happens when you click on the icon.
+
+### User Details
+**Minor Bug:** On avatar page, If the user tries to upload a big image, the server doesn't store the actual file but a corrupted version seems to occupy the memory instead. This user will have the icon used by browsers as their avatar.
+
+File is shown to occupy memory:
+![Avatar bug Image](src/test/resources/readmefiles/30mb_image_Console_Information.png)
+
+Error shown on Docker:
+![Avatar bug Image](src/test/resources/readmefiles/30mb_image_PhpError_onDocker.png)
+
+Avatar with corrupted image:
+![Avatar bug Image](src/test/resources/readmefiles/broken_image.png)
+
+**Bug:** If a user that is not loggin in tries to directly go to a page, the image shows exception on page.
+
+Attempting to access the page without logging in:
+![Avatar bug Image](src/test/resources/readmefiles/broken_image.png)
 
 
 ## To be continued
