@@ -20,14 +20,14 @@ The project consists of two parts: browser automation tests and API tests. I’v
 
 Kanboard is a simple, open-source project management tool based on Kanban boards. It helps track tasks, organize workflows, and manage projects visually. With features like swimlanes, subtasks, and automation, it’s great for keeping work organized and boosting productivity. Perfect for teams or solo users looking for a lightweight solution.
 
-## Isolated Tests
+## Tests
 ### Test Coverage
 - **Login Page** – Valid/invalid login tests
 - **Dashboard** – Projects, Tasks and Subtasks tests
 - **Projects** – Board and List pages tests
 - **Management Pages** – User and Group management tests
 - **User Details** – User's details pages tests
-- **Scenario Tests** - A test that includes multiple pages.
+- **Scenario Tests** - A test that includes multiple pages. 
 
 ### Login Page Tests
 Login Page Tests include valid/invalid login scenarios and a basic SQL injection test.
@@ -77,10 +77,14 @@ There’s also a Cucumber test for MySubtasks, but it doesn’t use RestAssured.
 # Manual Tests
 
 Most of the application runs smoothly. I will focus on bugs I have found on this report.
+## Test Coverage
+Tested mainly used branches and their sub-branches, Similar with automated tests.
 
+### Dashboard Page
+**Minor bug:** If a project is created while duplicating another project, task number of the duplicated project will be used so
+the field on the create project modal becomes redundant. May or may not be intentional.
 ### Board Page
 **Minor Bug:** On Column title, if you click the caret, a dropdown will open. The icon for "hide this column" is outside of anchor element which is why nothing happens when you click on the icon.
-
 ### User Details
 **Minor Bug:** On avatar page, If the user tries to upload a big image, the server doesn't store the actual file but a corrupted version seems to occupy the memory instead. This user will have the icon used by browsers as their avatar.
 
